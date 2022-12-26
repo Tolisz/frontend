@@ -68,8 +68,23 @@ export const msalConfig = {
 };
 
 /**
+ * Add here the endpoints and scopes when obtaining an access token for protected web APIs. For more information, see:
+ * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/resources-and-scopes.md
+ */
+export const protectedResources = {
+    apiLoanComparer: {
+        endpoint: 'https://bank-project-backend-dev.azurewebsites.net/api/',
+        scopes: {
+            read: ['https://CreditComparer.onmicrosoft.com/08b8fb66-4b9f-493a-b3d2-53158caeb956/access_as_user'],
+            write: ['https://CreditComparer.onmicrosoft.com/08b8fb66-4b9f-493a-b3d2-53158caeb956/access_as_user'],
+        },
+    },
+};
+
+
+/**
  * https://docs.microsoft.com/en-us/azure/active-directory/develop/v2-permissions-and-consent#openid-connect-scopes
  */
 export const loginRequest = {
-    scopes: []
+    scopes: [...protectedResources.apiLoanComparer.scopes.read, ...protectedResources.apiLoanComparer.scopes.write],
 };

@@ -1,47 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-//import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './Home';
-import ErrorPage from './ErrorPage';
-import LogInButton from './LogInButton'
+import App from './App';
 
-import { PublicClientApplication } from "@azure/msal-browser";
+
+import { PublicClientApplication, EventType } from "@azure/msal-browser";
 import { msalConfig } from "./authConfig";
-import { MsalProvider} from "@azure/msal-react";
 
 export const msalInstance = new PublicClientApplication(msalConfig);
+
+// Default to using the first account if no account is active on page load
+if (!msalInstance.getActiveAccount() && msalInstance.getAllAccounts().length > 0) {
+    // Account selection logic is app dependent. Adjust as needed for different use cases.
+    msalInstance.setActiveAccount(msalInstance.getAllAccounts()[0]);
+}
+
+msalInstance.addEventCallback((event) => {
+    if (
+        (event.eventType === EventType.LOGIN_SUCCESS ||
+            event.eventType === EventType.ACQUIRE_TOKEN_SUCCESS ||
+            event.eventType === EventType.SSO_SILENT_SUCCESS) &&
+        event.payload.account
+    ) {
+        msalInstance.setActiveAccount(event.payload.account);
+    }
+});
+
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-   
-    <MsalProvider instance={msalInstance}>
-        <Home />
-    </MsalProvider>
-
-   {/* <BrowserRouter>
-      <LogInButton/>
-      
-      <Routes>
-        <Route 
-            path="/"
-            element={ <MsalProvider instance={msalInstance}>
-                          <Home />
-                      </MsalProvider>}>
-
-        </Route>
-        <Route
-            path="/error"
-            element={<ErrorPage/>}  >
-
-        </Route>
-      </Routes>
-   </BrowserRouter> */}
-
+        <BrowserRouter>
+            <App instance={msalInstance}/>
+        </BrowserRouter>
     </React.StrictMode>
 );
 
