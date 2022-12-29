@@ -12,14 +12,25 @@ import FormInput from './FormInput';
 
 // styles
 import "../styles/Form.css"
+import { DB_TABLE_NAME } from '@azure/msal-browser/dist/utils/BrowserConstants';
 
-const Form = () => {
+const Form = ({ error, execute }) => {
 
+    // Microsoft magic
+    // Jebani microsoft
+    // const { error, execute } = useFetchWithMsal({
+    //     scopes: protectedResources.apiLoanComparer.scopes.read,
+    // });
+    
     const [values, setValues] = useState({
-        name: "",
-        surname: "",
-        govermentId: "",
-
+        name: "TestoweImie",
+        surname: "TestoweNazwisko",
+        govermentId: "120398123",
+        email: "dupa@gmail.com",
+        jobType: "RobieGlupieProekty",
+        incomeLevel: 3000,
+        amount: 3000,
+        numberOfInstallments: 12
     });
 
     const inputs = [
@@ -36,6 +47,7 @@ const Form = () => {
         {
             id: 2,
             name: "surname",
+            type: "text", 
             placeholder: "Nazwisko",
             errorMessage: "Twoje nazwisko musi zaczynać się z wielkiej litery oraz posiadać co najmniej 3 litery, ale nie więcej niż 20",
             label: "Nazwisko",
@@ -43,59 +55,123 @@ const Form = () => {
             required: true,
         },
         {
-            id: 3
+            id: 3,
+            name: "govermentId",
+            type: "text", 
+            placeholder: "Identyfikator urzędowy",
+            errorMessage: "Identyfikator musi zawierać wyłącznie cyfry lub litery",
+            label: "Identyfikator urzędowy",
+            pattern: "[A-Za-z0-9]*",
+            required: true, 
+        }, 
+        {
+            id: 4,
+            name: "email",
+            type: "email",
+            placeholder: "Adres mailowy",
+            errorMessage: "Podany adres mailowy jest niepoprawny",
+            label: "email",
+            required: true, 
+        },
+        {
+            id: 5,
+            name: "jobType",
+            type: "text",
+            placeholder: "Zawód",
+            errorMessage: "Nazwa zawodu nie może być dłuższa niż 40 liter",
+            label: "Zawód",
+            pattern: "[A-Za-z]{1,40}",
+            required: true, 
+        },
+        {
+            id: 6,
+            name: "incomeLevel",
+            type: "number",
+            placeholder: "Dochód",
+            errorMessage: "Dochód musi być większy od minimalnej krajowej oraz po przecinku zawierać co najwyżej dwie cyfry. Pole musi zawierać wyłączne cyfry ",
+            label: "Dochód",
+            //pattern: "[0-9]{3,9}([.][0-9]{1,2}){0,1}",
+            min: 1000,
+            max: 100000000,
+            required: true, 
+        },
+        {
+            id: 7,
+            name: "amount",
+            type: "number",
+            placeholder: "Suma kredytu",
+            errorMessage: "Suma kredytu zawiera wyłącznie cyfry",
+            label: "Suma kredytu",
+            //pattern: "[0-9]{1,9}([.][0-9]{1,2}){0,1}",
+            min: 1,
+            max: 100000000,
+            required: true, 
+        },
+        {
+            id: 8,
+            name: "numberOfInstallments",
+            type: "number",
+            placeholder: "Liczba rat",
+            errorMessage: "Liczba rat musi być w zakresie pomiędzy 1 a 100",
+            label: "Liczba rat",
+            //pattern: "[0-9]{1,2}",
+            min: 1,
+            max: 100,
+            required: true, 
         }
-
-        // {
-        //     id: 2,
-        //     name: "email",
-        //     type: "email", 
-        //     placeholder: "Email",
-        //     errorMessage: "test2",
-        //     label: "Email",
-        //     required: true,
-        // },
-        // {
-        //     id: 3,
-        //     name: "birthday",
-        //     type: "date", 
-        //     placeholder: "Birthday",
-        //     errorMessage: "test3",
-        //     label: "Birthday",
-        // },
-        // {
-        //     id: 4,
-        //     name: "password",
-        //     type: "password", 
-        //     placeholder: "Password",
-        //     errorMessage: "test4",
-        //     label: "Password",
-        //     required: true,
-        // },
-        // {
-        //     id: 5,
-        //     name: "confirmPassword",
-        //     type: "password", 
-        //     placeholder: "Confirm Password",
-        //     errorMessage: "test5",
-        //     label: "Confirm Password",
-        //     required: true,
-        // }
     ]
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        let currentTime = new Date().toJSON();
+        let formData = {...values, date: currentTime, status: 'require acceptance' };
+        
+        console.log(formData);
+        console.log("Lecimy z tym koksem");
+        console.log("Ednpoint: ", protectedResources.apiLoanComparer.endpoint + `RequestManagement`);
+
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `RequestManagement`, formData)
+        .then((response) => {
+            if (response && response.message === "success") {
+                console.log("Udało się");
+            }
+
+            console.log(response)
+            if (error) {
+                console.log("Error", error.message);
+            }
+        })
+
+        if (error) {
+            return <div>Error: {error.message}</div>;
+        }
+
+        // execute("GET", "https://bank-project-backend-dev.azurewebsites.net/WeatherForecast")
+        // .then((response) => {
+        //     console.log(response)
+        //     console.log('setData')
+        // })
+        
         // const data = new FormData(e.target);
         // console.log(Object.fromEntries(data.entries()));
     } 
 
     const onChange = (e) => {
-        setValues({...values, [e.target.name]: e.target.value});
+        switch(e.target.name)
+        {
+            case "incomeLevel":
+            case "numberOfInstallments":
+            case "amount":
+                setValues({...values, [e.target.name]: parseFloat(e.target.value, 10)});
+                break;
+            default:
+                setValues({...values, [e.target.name]: e.target.value});
+        }
     }
 
-
     console.log(values)
+    
     return (
         <div className='Form'>
 

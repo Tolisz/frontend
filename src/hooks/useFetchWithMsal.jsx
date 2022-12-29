@@ -37,6 +37,7 @@ const useFetchWithMsal = (msalRequest) => {
         }
 
         console.log('W execute')
+        console.log('result', result)
         if (result) {
             try {
                 let response = null;
@@ -68,7 +69,6 @@ const useFetchWithMsal = (msalRequest) => {
             }
         }
     };
-
 
     return {
         isLoading,
