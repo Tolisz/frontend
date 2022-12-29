@@ -1,0 +1,10 @@
+.Form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.FormTitle
+{
+    text-align: center;
+}

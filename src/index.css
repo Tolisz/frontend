@@ -1,0 +1,36 @@
+.header {
+    background-color: lightblue;
+    font-size: 20px;
+    text-align: center;
+
+    border: none;
+    margin: 0px;
+}
+
+body {
+    text-align: center;
+    margin: 0px;
+}
+
+.LogInButton {
+    border-color: rgb(44, 167, 207);
+    position: relative;
+    float: right;
+}
+
+.LogButton {
+    display: inline-block;
+    background: rgb(0, 0, 0);
+    color: #fff;
+    
+    margin: 10px;
+    border-radius: 5px;
+
+    cursor: pointer;
+    font-size: 20px;
+    font-family: inherit
+}
+
+/* .ButtonMenu {
+    color:aqua;
+} */

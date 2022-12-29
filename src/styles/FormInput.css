@@ -1,0 +1,19 @@
+.FormInput {
+    background-color: white;
+    padding: 0px 60px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+}
+
+.FormInput span {
+    font-size: 12px;
+    padding: 3px;
+    color: red;
+    display: none;
+}
+
+.FormInput input:invalid[focused="true"] ~ span {
+    display: block;
+}
