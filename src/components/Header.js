@@ -11,7 +11,7 @@ const Header = () => {
     const navigate = useNavigate();
 
     const click_FormPage = () => {
-        navigate('/form');
+        navigate('/offers'); // MUSI BYĆ /form
     }
 
     const click_HomePage = () => {

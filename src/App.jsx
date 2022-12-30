@@ -14,6 +14,7 @@ import Header from "./components/Header";
 import Home from "./components/Home"
 import MyAccount from "./components/MyAccount";
 import Form from "./components/Form";
+import Offers from "./components/Offers";
 
 const Pages = () => {
     const { instance } = useMsal();
@@ -90,6 +91,25 @@ const Pages = () => {
         // eslint-disable-next-line
     }, [instance]);
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    const [requestID, setRequestID] = useState(20);
+
     let activeAccount;
     if (instance) {
         activeAccount = instance.getActiveAccount();
@@ -123,7 +143,8 @@ const Pages = () => {
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/myaccount' element={<MyAccount/>}/>
-                <Route path='/form' element={<Form error={error}  execute={execute} />}/>
+                <Route path='/form' element={<Form error={error}  execute={execute} setRequestID={setRequestID}/>}  />
+                <Route path='/offers' element={<Offers error={error} execute={execute} requestID={requestID}/>} />
             </Routes>
 
             <UnauthenticatedTemplate>

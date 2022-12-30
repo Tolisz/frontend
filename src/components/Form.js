@@ -1,5 +1,6 @@
 // react
 import { useEffect, useState, useRef} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // microsoft
 import useFetchWithMsal from '../hooks/useFetchWithMsal';
@@ -12,9 +13,11 @@ import FormInput from './FormInput';
 
 // styles
 import "../styles/Form.css"
-import { DB_TABLE_NAME } from '@azure/msal-browser/dist/utils/BrowserConstants';
 
-const Form = ({ error, execute }) => {
+const Form = ({ error, execute, setRequestID }) => {
+
+    const navigate = useNavigate();
+
 
     // Microsoft magic
     // Jebani microsoft
@@ -137,10 +140,13 @@ const Form = ({ error, execute }) => {
                 console.log("Udało się");
             }
 
-            console.log(response)
+            console.log(response.message);
+            setRequestID(response);
             if (error) {
                 console.log("Error", error.message);
             }
+
+            navigate('/offers');
         })
 
         if (error) {

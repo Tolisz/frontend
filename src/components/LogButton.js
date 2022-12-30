@@ -15,7 +15,7 @@ const LogButton = () => {
     const navigate = useNavigate();
     
     const click_MyAccount = () => {
-        navigate('/myaccount');
+        navigate('/myaccount'); 
     }
     
     const click_LogOut = () => {
