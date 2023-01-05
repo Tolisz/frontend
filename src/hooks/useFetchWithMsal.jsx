@@ -33,7 +33,7 @@ const useFetchWithMsal = (msalRequest) => {
      * @param {Object} data: The data to send to the endpoint, if any 
      * @returns JSON response
      */
-    const execute = async (method, endpoint, data = null) => {
+    const execute = async (method, endpoint, data = null, request_body = 'application/json') => {
         if (msalError) {
             setError(msalError);
             return;
@@ -50,13 +50,15 @@ const useFetchWithMsal = (msalRequest) => {
                 const bearer = `Bearer ${result.accessToken}`;            
                 headers.append("Authorization", bearer);
 
-                if (data) headers.append('Content-Type', 'application/json');
+                //if (data) headers.append('Content-Type', request_body);
 
                 let options = {
                     method: method,
                     headers: headers,
-                    body: data ? JSON.stringify(data) : null,
+                    body: data, //? JSON.stringify(data) : null,
                 };
+
+                console.log("options.body = ", options.body);
 
                 setIsLoading(true);
 

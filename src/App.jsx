@@ -15,6 +15,7 @@ import Home from "./components/Home"
 import MyAccount from "./components/MyAccount";
 import Form from "./components/Form";
 import Offers from "./components/Offers";
+import DocumentLoad from "./components/DocumentLoad";
 
 const Pages = () => {
     const { instance } = useMsal();
@@ -145,6 +146,7 @@ const Pages = () => {
                 <Route path='/myaccount' element={<MyAccount/>}/>
                 <Route path='/form' element={<Form error={error}  execute={execute} setRequestID={setRequestID}/>}  />
                 <Route path='/offers' element={<Offers error={error} execute={execute} requestID={requestID}/>} />
+                <Route path='/loadDocuments' element={<DocumentLoad error={error} execute={execute} requestID={requestID}/>} />
             </Routes>
 
             <UnauthenticatedTemplate>

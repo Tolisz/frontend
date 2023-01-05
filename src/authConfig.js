@@ -73,7 +73,7 @@ export const msalConfig = {
  */
 export const protectedResources = {
     apiLoanComparer: {
-        endpoint: 'https://bank-project-backend-dev.azurewebsites.net/api/',
+        endpoint: 'https://bank-project-backend-dev.azurewebsites.net/',
         scopes: {
             read: ['https://CreditComparer.onmicrosoft.com/08b8fb66-4b9f-493a-b3d2-53158caeb956/access_as_user'],
             write: ['https://CreditComparer.onmicrosoft.com/08b8fb66-4b9f-493a-b3d2-53158caeb956/access_as_user'],

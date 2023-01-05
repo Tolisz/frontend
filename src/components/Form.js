@@ -134,7 +134,7 @@ const Form = ({ error, execute, setRequestID }) => {
         console.log("Lecimy z tym koksem");
         console.log("Ednpoint: ", protectedResources.apiLoanComparer.endpoint + `RequestManagement`);
 
-        execute("POST", protectedResources.apiLoanComparer.endpoint + `RequestManagement`, formData)
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`, formData)
         .then((response) => {
             if (response && response.message === "success") {
                 console.log("Udało się");
