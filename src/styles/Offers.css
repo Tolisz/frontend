@@ -1,0 +1,28 @@
+.Offers-islande
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Offers-whole
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    align-self: center;
+
+    border-radius: 40px;
+    padding: 1%;
+}
+
+.Offers-offers
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}

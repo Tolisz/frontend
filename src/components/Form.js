@@ -144,7 +144,6 @@ const Form = ({ error, execute, setRequestID }) => {
         //console.log("Lecimy z tym koksem");
         //console.log("Ednpoint: ", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`);
         
-        navigate('/offers');
         
         execute("POST", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`, JSON.stringify(formData), 'application/json')
         .then((response) => {
@@ -152,13 +151,14 @@ const Form = ({ error, execute, setRequestID }) => {
                 //console.log("Udało się");
             }
             
-            //console.log(response.message);
+            console.log(response.message);
             console.log("MYRESPONSE", response);
             setRequestID(response);
             if (error) {
                 console.log("Error", error.message);
             }
             
+            navigate('/offers');
         })
         
         

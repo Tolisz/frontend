@@ -11,6 +11,8 @@ import { loginRequest, protectedResources, b2cPolicies } from "../authConfig";
 // my components
 import Offer from "./Offer";
 
+// css
+import "../styles/Offers.css"
 
 const Offers = ({error, execute, requestID}) => {
 
@@ -36,23 +38,23 @@ const Offers = ({error, execute, requestID}) => {
         if (error) {
             return <div>Error: {error.message}</div>;
         }
-
-        //TO NALEŻY USUNĄC
-        navigate("/loadDocuments");
     }
 
     return (
-        <>
-            <h1> Offers related to your form </h1>
+        <div className="Offers-islande">
+            <div className="Offers-whole">
+                <h1> Na podstawie Twojego formularzu możemy zaproponować następujące oferty </h1>
 
-            {offers ? offers.map((offer, index) => (
-                <Offer key={index} data={offer} error={error} execute={execute} requestID={requestID}/>
-            ) ) : 'Nie załadowane'}
-
-            <button onClick={getOffersbyID}>
-                Sprawdzian
-            </button>
-        </>
+                <div className="Offers-offers">
+                {offers ? offers.map((offer, index) => (
+                    <Offer key={index} data={offer} error={error} execute={execute} requestID={requestID}/>
+                ) ) : 'Nie załadowane'}
+                </div>
+                <button onClick={getOffersbyID}>
+                    Sprawdzian
+                </button>
+            </div>
+        </div>
     )
 }
 

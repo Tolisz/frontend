@@ -150,7 +150,7 @@ const Pages = () => {
                 <Route path='/success' element={<Success/>} />
             </Routes>
 
-            {/* <UnauthenticatedTemplate>
+            <UnauthenticatedTemplate>
             <div className="App">
                 <header className="App-header">
                     <p>
@@ -180,7 +180,7 @@ const Pages = () => {
                         </button>
                     </header>
                 </div>
-            </AuthenticatedTemplate> */}
+            </AuthenticatedTemplate>
         </div>
     );
 }

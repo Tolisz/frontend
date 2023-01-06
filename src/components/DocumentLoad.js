@@ -33,15 +33,19 @@ const DocumentLoad = ({ error, execute, requestID }) => {
 
         //console.log("formData = ", formData);
 
-        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadAgreement/${requestID}`, formDataAgr, 'multipart/form-data')
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadAgreement/${requestID}`, formDataAgr)
         .then((result) => {
             console.log(result);
-        })
+        }).catch(e => {
+            console.log("Blad w formDataAgr", e);
+        });
         
-        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadDocument/${requestID}`, formDataDoc, 'multipart/form-data')
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadDocument/${requestID}`, formDataDoc)
         .then((result) => {
             console.log(result);
-        })
+        }).catch(e => {
+            console.log("Blad w formDataDoc", e);
+        });
 
         navigate("/success");
     }
