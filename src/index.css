@@ -1,40 +1,24 @@
-/* .header {
-    background-color: lightblue;
-    font-size: 20px;
-    text-align: center;
-
-    border: none;
-    margin: 0px;
-}
-
-body {
-    text-align: center;
-    margin: 0px;
-}
-
-.LogInButton {
-    border-color: rgb(44, 167, 207);
-    position: relative;
-    float: right;
-}
-
-.LogButton {
-    display: inline-block;
-    background: rgb(0, 0, 0);
-    color: #fff;
-    
-    margin: 10px;
-    border-radius: 5px;
-
-    cursor: pointer;
-    font-size: 20px;
-    font-family: inherit
-} */
-
-/* .ButtonMenu {
-    color:aqua;
-} */ 
-
 body {
     margin: 0%;
+    height: 100%;
+}
+
+html {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+.container {
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.7),
+        rgba(255, 255, 255, 0.3)
+      ),
+      url("https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+    background-size: cover;
+    background-position: center;
+
+    height: 100%;
 }

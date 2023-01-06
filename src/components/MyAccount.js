@@ -9,6 +9,8 @@ import { createClaimsTable } from '../utils/claimUtils';
 
 // my components
 
+// css 
+import "../styles/MyAccount.css"
 
 const MyAccount = (props) => {
 
@@ -30,41 +32,50 @@ const MyAccount = (props) => {
         <>
             <AuthenticatedTemplate>
                 {/* {tableRow} */}
-                <div>
-                    Moje konto
 
-                    <br/>
-                    
-                    Poniżej możesz znaleźć informacje dotyczące twojego konta
+                <div className='MyAccount-island'>
 
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Surname</td>
-                                <td>{tokenClaims[10][1]}</td>
-                            </tr>
-                            <tr>
-                                <td>Name</td>
-                                <td>{tokenClaims[11][1]}</td>
-                            </tr>
-                            <tr>
-                                <td>Government ID</td>
-                                <td>{tokenClaims[12][1]}</td>
-                            </tr>
-                            <tr>
-                                <td>Government Type</td>
-                                <td>{tokenClaims[13][1]}</td>
-                            </tr>
-                            <tr>
-                                <td>Income Level</td>
-                                <td>{tokenClaims[14][1]}</td>
-                            </tr>
-                            <tr>
-                                <td>JobType</td>
-                                <td>{tokenClaims[15][1]}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div className='MyAccount-whole'>
+                        <div>Moje konto</div>
+
+                        <br/>
+                        
+                        <div>Poniżej możesz znaleźć informacje dotyczące Twojego konta</div>
+
+                        <table className='MyAccount-table'>
+                            <tbody>
+                                <tr>
+                                    <td>Surname</td>
+                                    <td>{tokenClaims[10][1]}</td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{tokenClaims[11][1]}</td>
+                                </tr>
+                                <tr>
+                                    <td>email</td>
+                                    <td>{activeAccount.username}</td>
+                                </tr>
+                                <tr>
+                                    <td>Government ID</td>
+                                    <td>{tokenClaims[12][1]}</td>
+                                </tr>
+                                <tr>
+                                    <td>Government Type</td>
+                                    <td>{tokenClaims[13][1]}</td>
+                                </tr>
+                                <tr>
+                                    <td>Income Level</td>
+                                    <td>{tokenClaims[14][1]}</td>
+                                </tr>
+                                <tr>
+                                    <td>JobType</td>
+                                    <td>{tokenClaims[15][1]}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
             </AuthenticatedTemplate>

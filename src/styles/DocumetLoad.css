@@ -1,0 +1,86 @@
+.DocumentLoad-island
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DocumentLoad-whole
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: white;
+
+    border-radius: 30px;
+    padding: 1%;
+}
+
+.DocumentLoad-title
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-bottom: 30px;
+
+    font-size: 20px;
+}
+
+.DocumentLoad-Form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DocumentLoad-upload-box
+{
+    font-size: 16px;
+    background-color:aliceblue;
+    border-radius: 50px;
+    box-shadow: 5px 5px 10px black;
+    width: 350px;
+    outline: none;
+
+    margin: 15px;
+    margin-bottom: 30px;
+}
+
+::-webkit-file-upload-button
+{
+    color: aliceblue;
+    background: #206a5b;
+    padding: 20px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 1px 0 1px 1px #6b4559;
+    outline: none;
+}
+
+::-webkit-file-upload-button:hover
+{
+    background: #438a5e;
+}
+
+.DocumentLoad-label
+{
+    font-size: 20px;
+}
+
+.DocumentLoad-submit
+{
+    border-style: solid;
+    border-color: aliceblue;
+    border-radius: 15px;
+
+    width: 100px;
+    height: 25px;
+
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial;
+
+    margin-top: 10px;
+}

@@ -1,5 +1,29 @@
+.Form-island
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Whole-Form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    align-self: center;
+
+    width: 500px;
+
+    border-radius: 40px;
+    padding: 1%;
+}
+
 .Form {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
@@ -7,4 +31,20 @@
 .FormTitle
 {
     text-align: center;
+}
+
+.SubmitButton
+{
+    border-style: solid;
+    border-color: aliceblue;
+    border-radius: 15px;
+
+    width: 100px;
+    height: 25px;
+
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial;
+
+    margin-top: 10px;
 }

@@ -1,0 +1,24 @@
+.MyAccount-island
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.MyAccount-whole
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: white;
+
+    border-radius: 30px;
+    padding: 1%;
+}
+
+.MyAccount-table
+{
+    margin-top: 20px;
+    width: 100%;
+}

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 // microsoft
 import { loginRequest, protectedResources } from "../authConfig";
 
+// css
+import '../styles/DocumetLoad.css'
 
 const DocumentLoad = ({ error, execute, requestID }) => {
   
@@ -45,17 +47,24 @@ const DocumentLoad = ({ error, execute, requestID }) => {
     }
   
     return (
-    <div>
-        <div> Jesteś na torze do sukcesu, pozostało tylko wgrać niezbędne dokumenty</div>
+    <div className='DocumentLoad-island'>
+        <div className='DocumentLoad-whole'>
 
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="agr">Zgoda </label>
-            <input type="file" id="agr" name="agreement" />
-            <label htmlFor="doc">Dokument </label>
-            <input type="file" id="doc" name="document" />
+            <div className='DocumentLoad-title'> 
+                <div>Jesteś na torze do sukcesu!</div>
+                <div> Zostało tylko wgrać niezbędne dokumenty</div>
+            </div>
 
-            <button>Submit</button>
-        </form>
+            <form onSubmit={handleSubmit} className='DocumentLoad-Form'>
+                <label htmlFor="agr" className='DocumentLoad-label'> Zgoda </label>
+                <input type="file" id="agr" name="agreement" className='DocumentLoad-upload-box'/>
+                <label htmlFor="doc" className='DocumentLoad-label'> Dokument </label>
+                <input type="file" id="doc" name="document" className='DocumentLoad-upload-box'/>
+
+                <button className='DocumentLoad-submit'>Submit</button>
+            </form>
+                    
+        </div>
     </div>
   )
 }

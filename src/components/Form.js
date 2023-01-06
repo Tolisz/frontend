@@ -192,18 +192,19 @@ const Form = ({ error, execute, setRequestID }) => {
     console.log(values)
     
     return (
-        <div className='Form'>
+        <div className='Form-island'>
+            <div className='Whole-Form'>
+                <h1 className='FormTitle'>FormTitle</h1> <br/>
 
-            <h1 className='FormTitle'>FormTitle</h1> <br/>
+                <form className='Form' onSubmit={handleSubmit}>
 
-            <form onSubmit={handleSubmit}>
-
-                {inputs.map((input) => (
-                    <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
-                ))}
-
-            <button>Submit</button>
-            </form>
+                    {inputs.map((input) => (
+                        <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
+                    ))}
+                    
+                    <button className='SubmitButton'>Submit</button>
+                </form>
+            </div>
         </div>
     )
 }

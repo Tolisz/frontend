@@ -17,8 +17,8 @@ const FormInput = (props) => {
 
     return (
         <div className="FormInput">
-            <label>{label}</label>
-            <input 
+            <label className='FormInput-label'>{label}</label>
+            <input className='FormInput-input'
                 {...inputProps} 
                 onChange={onChange}
                 onBlur={handleFocuse}
