@@ -16,10 +16,11 @@ import MyAccount from "./components/MyAccount";
 import Form from "./components/Form";
 import Offers from "./components/Offers";
 import DocumentLoad from "./components/DocumentLoad";
+import Success from "./components/Success";
 
 const Pages = () => {
     const { instance } = useMsal();
-    
+
     useEffect(() => {
         const callbackId = instance.addEventCallback((event) => {
             if (
@@ -107,9 +108,7 @@ const Pages = () => {
 
 
 
-
-
-    const [requestID, setRequestID] = useState(20);
+    const [requestID, setRequestID] = useState(NaN);
 
     let activeAccount;
     if (instance) {
@@ -130,6 +129,7 @@ const Pages = () => {
         .then((response) => {
             setData(response)
             console.log('setData')
+            console.log(response)
         })
 
         if (error) {
@@ -147,9 +147,10 @@ const Pages = () => {
                 <Route path='/form' element={<Form error={error}  execute={execute} setRequestID={setRequestID}/>}  />
                 <Route path='/offers' element={<Offers error={error} execute={execute} requestID={requestID}/>} />
                 <Route path='/loadDocuments' element={<DocumentLoad error={error} execute={execute} requestID={requestID}/>} />
+                <Route path='/success' element={<Success/>} />
             </Routes>
 
-            <UnauthenticatedTemplate>
+            {/* <UnauthenticatedTemplate>
             <div className="App">
                 <header className="App-header">
                     <p>
@@ -179,7 +180,7 @@ const Pages = () => {
                         </button>
                     </header>
                 </div>
-            </AuthenticatedTemplate>
+            </AuthenticatedTemplate> */}
         </div>
     );
 }

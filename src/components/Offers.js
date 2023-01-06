@@ -1,7 +1,7 @@
 // react
 import React from "react";
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 // microsoft
 import { AuthenticatedTemplate, UnauthenticatedTemplate, MsalProvider, useMsal } from "@azure/msal-react";
@@ -15,6 +15,8 @@ import Offer from "./Offer";
 const Offers = ({error, execute, requestID}) => {
 
     console.log(requestID)
+
+    const navigate = useNavigate();
 
     const [offers, setOffers] = useState([])
 
@@ -34,15 +36,18 @@ const Offers = ({error, execute, requestID}) => {
         if (error) {
             return <div>Error: {error.message}</div>;
         }
+
+        //TO NALEŻY USUNĄC
+        navigate("/loadDocuments");
     }
 
     return (
         <>
             <h1> Offers related to your form </h1>
 
-            {offers.map((offer, index) => (
+            {offers ? offers.map((offer, index) => (
                 <Offer key={index} data={offer} error={error} execute={execute} requestID={requestID}/>
-            ) ) }
+            ) ) : 'Nie załadowane'}
 
             <button onClick={getOffersbyID}>
                 Sprawdzian

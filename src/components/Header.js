@@ -6,12 +6,16 @@ import { useNavigate } from 'react-router-dom';
 // my components
 import LogButton from "./LogButton"
 
+// css
+import "../styles/Header.css"
+
+
 const Header = () => {
 
     const navigate = useNavigate();
 
     const click_FormPage = () => {
-        navigate('/offers'); // MUSI BYĆ /form
+        navigate('/form');
     }
 
     const click_HomePage = () => {
@@ -19,16 +23,15 @@ const Header = () => {
     }
 
     return (
-        <header className="header">
+        <div className="header">
             <div onClick={click_HomePage}>
-                Jakiś logotyp
+                Kredyt.pl
             </div>
-
-            <button onClick={click_FormPage}>
-                Wypewnij formę
+            <button onClick={click_FormPage} className="header-formbutton">
+                Wypewnij formularz
             </button>
             <LogButton/>
-        </header>
+        </div>
     )
 }
 

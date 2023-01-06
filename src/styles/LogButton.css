@@ -1,0 +1,30 @@
+.LogInButton
+{
+    padding: 10px 12px;
+
+    border-style: solid;
+    border-color: aliceblue;
+    border-radius: 15px;
+
+    background-color:  rgba(127, 208, 255, 0.651);
+
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial;
+}
+
+.MenuButton
+{
+    border-style: solid;
+    border-color: aliceblue;
+    border-radius: 15px;
+
+    background-color:  rgba(127, 208, 255, 0.651);
+
+    width: 100px;
+    height: 25px;
+
+    font-size: 14px;
+    font-weight: bold;
+    font-family: Arial;
+}

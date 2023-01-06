@@ -24,16 +24,20 @@ const Form = ({ error, execute, setRequestID }) => {
     // const { error, execute } = useFetchWithMsal({
     //     scopes: protectedResources.apiLoanComparer.scopes.read,
     // });
-    
+
+    const { instance } = useMsal();    
+    const activeAccount = instance.getActiveAccount();
+    const tokenClaims = activeAccount ? createClaimsTable(activeAccount.idTokenClaims) : null;
+
     const [values, setValues] = useState({
-        name: "TestoweImie",
-        surname: "TestoweNazwisko",
-        govermentId: "120398123",
-        email: "dupa@gmail.com",
-        jobType: "RobieGlupieProekty",
-        incomeLevel: 3000,
-        amount: 3000,
-        numberOfInstallments: 12
+        name: activeAccount ? tokenClaims[11][1] : "",
+        surname: activeAccount ? tokenClaims[10][1] : "",
+        govermentId: activeAccount ? tokenClaims[12][1] : "",
+        email: activeAccount ? activeAccount.username : "",
+        jobType: activeAccount ? tokenClaims[15][1] : "",
+        incomeLevel: activeAccount ? tokenClaims[14][1] : NaN,
+        amount: NaN,
+        numberOfInstallments: NaN
     });
 
     const inputs = [
@@ -46,6 +50,7 @@ const Form = ({ error, execute, setRequestID }) => {
             label: "Imię",
             pattern: "^[A-Z][A-Za-z]{2,20}",
             required: true,
+            disabled: activeAccount ? true : false,
         },
         {
             id: 2,
@@ -56,6 +61,7 @@ const Form = ({ error, execute, setRequestID }) => {
             label: "Nazwisko",
             pattern: "^[A-Z][A-Za-z]{2,20}",
             required: true,
+            disabled: activeAccount ? true : false,
         },
         {
             id: 3,
@@ -66,6 +72,7 @@ const Form = ({ error, execute, setRequestID }) => {
             label: "Identyfikator urzędowy",
             pattern: "[A-Za-z0-9]*",
             required: true, 
+            disabled: activeAccount ? true : false,
         }, 
         {
             id: 4,
@@ -75,6 +82,7 @@ const Form = ({ error, execute, setRequestID }) => {
             errorMessage: "Podany adres mailowy jest niepoprawny",
             label: "email",
             required: true, 
+            disabled: activeAccount ? true : false,
         },
         {
             id: 5,
@@ -84,7 +92,8 @@ const Form = ({ error, execute, setRequestID }) => {
             errorMessage: "Nazwa zawodu nie może być dłuższa niż 40 liter",
             label: "Zawód",
             pattern: "[A-Za-z]{1,40}",
-            required: true, 
+            required: true,
+            disabled: activeAccount ? true : false, 
         },
         {
             id: 6,
@@ -97,6 +106,7 @@ const Form = ({ error, execute, setRequestID }) => {
             min: 1000,
             max: 100000000,
             required: true, 
+            disabled: activeAccount ? true : false,
         },
         {
             id: 7,
@@ -128,27 +138,30 @@ const Form = ({ error, execute, setRequestID }) => {
         e.preventDefault();
 
         let currentTime = new Date().toJSON();
-        let formData = {...values, date: currentTime, status: 'require acceptance' };
+        let formData = {...values, date: currentTime, status: 'require acceptance', apiInfo: 'Frontend' };
         
-        console.log(formData);
-        console.log("Lecimy z tym koksem");
-        console.log("Ednpoint: ", protectedResources.apiLoanComparer.endpoint + `RequestManagement`);
-
-        execute("POST", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`, formData)
+        //console.log(formData);
+        //console.log("Lecimy z tym koksem");
+        //console.log("Ednpoint: ", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`);
+        
+        navigate('/offers');
+        
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`, JSON.stringify(formData), 'application/json')
         .then((response) => {
             if (response && response.message === "success") {
-                console.log("Udało się");
+                //console.log("Udało się");
             }
-
-            console.log(response.message);
+            
+            //console.log(response.message);
+            console.log("MYRESPONSE", response);
             setRequestID(response);
             if (error) {
                 console.log("Error", error.message);
             }
-
-            navigate('/offers');
+            
         })
-
+        
+        
         if (error) {
             return <div>Error: {error.message}</div>;
         }

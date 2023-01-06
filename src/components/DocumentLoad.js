@@ -1,19 +1,21 @@
+// react
+import { useNavigate } from 'react-router-dom';
+
 // microsoft
 import { loginRequest, protectedResources } from "../authConfig";
 
 
 const DocumentLoad = ({ error, execute, requestID }) => {
   
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
         console.log("Documenty leca");
 
         let agr = document.getElementById("agr").files[0];
-        //console.log("agr = ", agr);
-
         let doc = document.getElementById("doc").files[0];
-        //console.log(doc);
 
         if (!agr || !doc)
         {
@@ -21,20 +23,25 @@ const DocumentLoad = ({ error, execute, requestID }) => {
         }
 
         // Oba dokumenty zostały wgrane
-        
         let formDataAgr = new FormData();
         formDataAgr.append("file", agr);
 
+        let formDataDoc = new FormData();
+        formDataDoc.append("file", agr);
+
         //console.log("formData = ", formData);
 
-        if (agr)
-        {
-            console.log("Jestem i próbuje wysłać");
-            execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadAgreement/${requestID}`, formDataAgr, 'multipart/form-data')
-            .then((result) => {
-                console.log(result);
-            })
-        }
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadAgreement/${requestID}`, formDataAgr, 'multipart/form-data')
+        .then((result) => {
+            console.log(result);
+        })
+        
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadDocument/${requestID}`, formDataDoc, 'multipart/form-data')
+        .then((result) => {
+            console.log(result);
+        })
+
+        navigate("/success");
     }
   
     return (

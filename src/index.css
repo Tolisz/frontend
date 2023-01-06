@@ -1,4 +1,4 @@
-.header {
+/* .header {
     background-color: lightblue;
     font-size: 20px;
     text-align: center;
@@ -29,8 +29,12 @@ body {
     cursor: pointer;
     font-size: 20px;
     font-family: inherit
-}
+} */
 
 /* .ButtonMenu {
     color:aqua;
-} */
+} */ 
+
+body {
+    margin: 0%;
+}
