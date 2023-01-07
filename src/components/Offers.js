@@ -20,7 +20,7 @@ const Offers = ({error, execute, requestID}) => {
 
 
     useEffect(() => {
-        const getOffersbyID = () => {
+        const getOffersbyID_EFFECT = () => {
             execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
             .then((response) => {
                 console.log(response)
@@ -33,10 +33,21 @@ const Offers = ({error, execute, requestID}) => {
             }
         }
 
-        getOffersbyID();
+        getOffersbyID_EFFECT();
     }, [])
 
+    const getOffersbyID = () => {
+        execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
+        .then((response) => {
+            console.log(response)
+            console.log('setData')
+            setOffers(response)
+        })
 
+        if (error) {
+            return <div>Error: {error.message}</div>;
+        }
+    }
 
     return (
         <div className="Offers-islande">
