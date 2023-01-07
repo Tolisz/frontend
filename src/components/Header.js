@@ -22,6 +22,10 @@ const Header = () => {
         navigate('/');
     }
 
+    const click_StatusCheck = () => {
+        navigate('/statusCheck');
+    }
+
     return (
         <div className="header">
             <div onClick={click_HomePage}>
@@ -29,6 +33,9 @@ const Header = () => {
             </div>
             <button onClick={click_FormPage} className="header-formbutton">
                 Wypewnij formularz
+            </button>
+            <button onClick={click_StatusCheck} className="LogInButton">
+                Sprawdź status
             </button>
             <LogButton/>
         </div>

@@ -17,6 +17,7 @@ import Form from "./components/Form";
 import Offers from "./components/Offers";
 import DocumentLoad from "./components/DocumentLoad";
 import Success from "./components/Success";
+import StatusCheck from "./components/StatusCheck";
 
 const Pages = () => {
     const { instance } = useMsal();
@@ -148,6 +149,7 @@ const Pages = () => {
                 <Route path='/offers' element={<Offers error={error} execute={execute} requestID={requestID}/>} />
                 <Route path='/loadDocuments' element={<DocumentLoad error={error} execute={execute} requestID={requestID}/>} />
                 <Route path='/success' element={<Success/>} />
+                <Route path='/statusCheck' element={<StatusCheck error={error} execute={execute}/>} />
             </Routes>
 
             <UnauthenticatedTemplate>
