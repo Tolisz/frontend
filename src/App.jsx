@@ -131,6 +131,7 @@ const Pages = () => {
             setData(response)
             console.log('setData')
             console.log(response)
+            console.log(data);
         })
 
         if (error) {

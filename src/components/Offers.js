@@ -1,7 +1,6 @@
 // react
 import React from "react";
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 // microsoft
 import { protectedResources } from "../authConfig";

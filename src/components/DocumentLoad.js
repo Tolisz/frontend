@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 
 // microsoft
-import { loginRequest, protectedResources } from "../authConfig";
+import { protectedResources } from "../authConfig";
 
 // css
 import '../styles/DocumetLoad.css'
