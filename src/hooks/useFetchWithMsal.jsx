@@ -34,12 +34,14 @@ const useFetchWithMsal = (msalRequest) => {
      * @returns JSON response
      */
     const execute = async (method, endpoint, data = null, request_body = null) => {
+        console.log('W execute');
+
         if (msalError) {
+            console.log(msalError);
             setError(msalError);
             return;
         }
 
-        console.log('W execute')
         console.log('result', result)
         if (result) {
             try {
