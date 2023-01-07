@@ -1,9 +1,9 @@
 // react
 import React from "react";
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // microsoft
-import { loginRequest, protectedResources, b2cPolicies } from "../authConfig";
+import { protectedResources } from "../authConfig";
 
 // css
 import '../styles/StatusCheck.css'

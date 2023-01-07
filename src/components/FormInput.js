@@ -1,6 +1,5 @@
 // react
-import { StubPerformanceClient } from '@azure/msal-common';
-import { useEffect, useState, useRef} from 'react';
+import { useState } from 'react';
 
 // styles
 import "../styles/FormInput.css"

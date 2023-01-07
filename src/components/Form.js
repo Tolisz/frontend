@@ -1,11 +1,10 @@
 // react
-import { useEffect, useState, useRef} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // microsoft
-import useFetchWithMsal from '../hooks/useFetchWithMsal';
-import { loginRequest, protectedResources } from "../authConfig";
-import { AuthenticatedTemplate, UnauthenticatedTemplate, MsalProvider, useMsal } from "@azure/msal-react";
+import { protectedResources } from "../authConfig";
+import { useMsal } from "@azure/msal-react";
 import { createClaimsTable } from '../utils/claimUtils';
 
 // my components

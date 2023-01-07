@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 // microsoft
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal} from "@azure/msal-react";
-import { loginRequest, protectedResources } from "../authConfig";
+import { loginRequest } from "../authConfig";
 
 // my components
 

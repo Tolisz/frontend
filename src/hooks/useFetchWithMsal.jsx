@@ -3,9 +3,10 @@ import {
     useCallback,
 } from 'react';
 
-import { InteractionType, PopupRequest } from '@azure/msal-browser';
+//import { InteractionType, PopupRequest } from '@azure/msal-browser';
+import { PopupRequest } from '@azure/msal-browser';
 import { useMsal, useMsalAuthentication } from "@azure/msal-react";
-import { useEffect } from 'react';
+//import { useEffect } from 'react';
 
 /**
  * Custom hook to call a web API using bearer token obtained from MSAL
@@ -18,7 +19,7 @@ const useFetchWithMsal = (msalRequest) => {
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
     
-    const [myResult, setMyResult] = useState(null);
+    //const [myResult, setMyResult] = useState(null);
 
     const { result, error: msalError } = useMsalAuthentication(InteractionType.Popup, {
         ...msalRequest,

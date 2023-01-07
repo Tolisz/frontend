@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // microsoft
-import { AuthenticatedTemplate, UnauthenticatedTemplate, MsalProvider, useMsal } from "@azure/msal-react";
-import { EventType } from '@azure/msal-browser';
-import { loginRequest, protectedResources, b2cPolicies } from "../authConfig";
+import { protectedResources } from "../authConfig";
 
 // my components
 import Offer from "./Offer";
@@ -24,21 +22,23 @@ const Offers = ({error, execute, requestID}) => {
 
 
     useEffect(() => {
+        const getOffersbyID = () => {
+            execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
+            .then((response) => {
+                console.log(response)
+                console.log('setData')
+                setOffers(response)
+            })
+    
+            if (error) {
+                return <div>Error: {error.message}</div>;
+            }
+        }
+
         getOffersbyID();
     }, [])
 
-    const getOffersbyID = () => {
-        execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
-        .then((response) => {
-            console.log(response)
-            console.log('setData')
-            setOffers(response)
-        })
 
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        }
-    }
 
     return (
         <div className="Offers-islande">
