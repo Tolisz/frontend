@@ -16,8 +16,6 @@ const Offers = ({error, execute, requestID}) => {
 
     console.log(requestID)
 
-    const navigate = useNavigate();
-
     const [offers, setOffers] = useState([])
 
 
