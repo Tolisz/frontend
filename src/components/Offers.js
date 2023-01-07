@@ -33,7 +33,7 @@ const Offers = ({error, execute, requestID}) => {
         }
 
         getOffersbyID_EFFECT();
-    }, [])
+    }, [error, execute, requestID])
 
     const getOffersbyID = () => {
         execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
