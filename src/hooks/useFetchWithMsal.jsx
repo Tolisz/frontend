@@ -39,6 +39,7 @@ const useFetchWithMsal = (msalRequest) => {
             return;
         }
 
+        // Użytkownik dopiero się zalogował
         if (result) {
             try {
                 let response = null;
@@ -70,6 +71,42 @@ const useFetchWithMsal = (msalRequest) => {
         }
         else 
         {
+            console.log("Jestem tutaj");
+
+            // Użytkownik nie jest zalogowany
+            if (!instance.getActiveAccount())
+            {
+                console.log("No jestem");
+
+                try {
+                    let response = null;
+    
+                    const headers = new Headers();
+                    //const bearer = `Bearer ${accessToken}`;            
+                    //headers.append("Authorization", bearer);
+                    if (request_body) headers.append('Content-Type', request_body);
+    
+                    let options = {
+                        method: method,
+                        headers: headers,
+                        body: data,
+                    };
+    
+                    setIsLoading(true);
+    
+                    response = await (await fetch(endpoint, options)).json();
+                    setData(response);
+    
+                    setIsLoading(false);
+                    return response;
+                } catch (e) {
+                    setError(e);
+                    setIsLoading(false);
+                    throw e;
+                }
+            }
+
+            // Użytkownik jest zalogowany, ale np. odświeżył stronę 
             let accessToken;
             await acquireToken(InteractionType.None)
                 .then ((res) => 
