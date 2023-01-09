@@ -16,7 +16,7 @@ const StatusCheck = ({ error, execute }) => {
     const findOffer = (e) => {
         e.preventDefault();
         console.log("Próbuję szukać");
-
+        
         execute("GET", protectedResources.apiLoanComparer.endpoint + `/inspect/${rqid}`)
         .then( (response) => {
             console.log(response);

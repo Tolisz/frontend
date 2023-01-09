@@ -18,15 +18,11 @@ const useFetchWithMsal = (msalRequest) => {
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
     
-    //const [myResult, setMyResult] = useState(null);
-
     const { result, error: msalError, login, acquireToken  } = useMsalAuthentication(InteractionType.None, {
         ...msalRequest,
         account: instance.getActiveAccount(),
         redirectUri: '/redirect.html'
     });
-
-    //acquireToken(InteractionType.None).then ((result) => { console.log("Pizda", result) })
 
     /**
      * Execute a fetch request with the given options
@@ -36,7 +32,6 @@ const useFetchWithMsal = (msalRequest) => {
      * @returns JSON response
      */
     const execute = async (method, endpoint, data = null, request_body = null) => {
-        console.log('W execute');
 
         if (msalError) {
             console.log(msalError);
@@ -44,26 +39,21 @@ const useFetchWithMsal = (msalRequest) => {
             return;
         }
 
-        console.log('result', result)
         if (result) {
             try {
                 let response = null;
 
-                console.log('Token', result.accessToken);
                 const headers = new Headers();
                 const bearer = `Bearer ${result.accessToken}`;            
                 headers.append("Authorization", bearer);
 
                 if (request_body) headers.append('Content-Type', request_body);
-                // headers.append('Content-Type', 'application/json');
 
                 let options = {
                     method: method,
                     headers: headers,
-                    body: data, //? JSON.stringify(data) : null,
+                    body: data,
                 };
-
-                console.log("options.body = ", options.body);
 
                 setIsLoading(true);
 
@@ -80,36 +70,27 @@ const useFetchWithMsal = (msalRequest) => {
         }
         else 
         {
-            console.log("Robie else");
-
             let accessToken;
             await acquireToken(InteractionType.None)
                 .then ((res) => 
                 { 
-                    console.log("Pizda", res) 
                     accessToken = res.accessToken;
-                    console.log("Token = ", accessToken);
                 }); 
 
-            console.log("No teraz to już na 100% robię else");
             try {
                 let response = null;
 
-                console.log('Token', accessToken);
                 const headers = new Headers();
                 const bearer = `Bearer ${accessToken}`;            
                 headers.append("Authorization", bearer);
 
                 if (request_body) headers.append('Content-Type', request_body);
-                // headers.append('Content-Type', 'application/json');
 
                 let options = {
                     method: method,
                     headers: headers,
-                    body: data, //? JSON.stringify(data) : null,
+                    body: data,
                 };
-
-                console.log("options.body = ", options.body);
 
                 setIsLoading(true);
 
