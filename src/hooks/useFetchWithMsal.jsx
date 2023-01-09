@@ -80,26 +80,36 @@ const useFetchWithMsal = (msalRequest) => {
         }
         else 
         {
+            console.log("Robie else");
+
             let accessToken;
             await acquireToken(InteractionType.None)
                 .then ((res) => 
                 { 
+                    console.log("Pizda", res) 
                     accessToken = res.accessToken;
-                });
-            
+                    console.log("Token = ", accessToken);
+                }); 
+
+            console.log("No teraz to już na 100% robię else");
             try {
                 let response = null;
 
+                console.log('Token', accessToken);
                 const headers = new Headers();
                 const bearer = `Bearer ${accessToken}`;            
+                headers.append("Authorization", bearer);
 
                 if (request_body) headers.append('Content-Type', request_body);
+                // headers.append('Content-Type', 'application/json');
 
                 let options = {
                     method: method,
                     headers: headers,
-                    body: data,
+                    body: data, //? JSON.stringify(data) : null,
                 };
+
+                console.log("options.body = ", options.body);
 
                 setIsLoading(true);
 
