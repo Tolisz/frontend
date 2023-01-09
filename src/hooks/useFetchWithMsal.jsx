@@ -20,11 +20,13 @@ const useFetchWithMsal = (msalRequest) => {
     
     //const [myResult, setMyResult] = useState(null);
 
-    const { result, error: msalError } = useMsalAuthentication(InteractionType.Popup, {
+    const { result, error: msalError, login, acquireToken  } = useMsalAuthentication(InteractionType.None, {
         ...msalRequest,
         account: instance.getActiveAccount(),
         redirectUri: '/redirect.html'
     });
+
+    //acquireToken(InteractionType.None).then ((result) => { console.log("Pizda", result) })
 
     /**
      * Execute a fetch request with the given options
@@ -62,6 +64,42 @@ const useFetchWithMsal = (msalRequest) => {
                 };
 
                 console.log("options.body = ", options.body);
+
+                setIsLoading(true);
+
+                response = await (await fetch(endpoint, options)).json();
+                setData(response);
+
+                setIsLoading(false);
+                return response;
+            } catch (e) {
+                setError(e);
+                setIsLoading(false);
+                throw e;
+            }
+        }
+        else 
+        {
+            let accessToken;
+            await acquireToken(InteractionType.None)
+                .then ((res) => 
+                { 
+                    accessToken = res.accessToken;
+                });
+            
+            try {
+                let response = null;
+
+                const headers = new Headers();
+                const bearer = `Bearer ${accessToken}`;            
+
+                if (request_body) headers.append('Content-Type', request_body);
+
+                let options = {
+                    method: method,
+                    headers: headers,
+                    body: data,
+                };
 
                 setIsLoading(true);
 
