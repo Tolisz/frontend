@@ -14,7 +14,7 @@ const StatusCheck = () => {
     const [offer, setOffer] = useState();
     const [rqid, setRqid] = useState(0);
 
-    const { error, execute } = useFetchWithMsal({
+    const { execute } = useFetchWithMsal({
         scopes: protectedResources.apiLoanComparer.scopes.read,
     });
 

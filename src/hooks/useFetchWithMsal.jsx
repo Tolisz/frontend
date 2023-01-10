@@ -18,7 +18,7 @@ const useFetchWithMsal = (msalRequest) => {
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
     
-    const { result, error: msalError, login, acquireToken  } = useMsalAuthentication(InteractionType.None, {
+    const { result, error: msalError, acquireToken  } = useMsalAuthentication(InteractionType.None, {
         ...msalRequest,
         account: instance.getActiveAccount(),
         redirectUri: '/redirect.html'
@@ -157,7 +157,7 @@ const useFetchWithMsal = (msalRequest) => {
         isLoading,
         error,
         data,
-        execute: useCallback(execute, [result, msalError]), // to avoid infinite calls when inside a `useEffect`
+        execute: useCallback(execute, [result, msalError, acquireToken, instance]), // to avoid infinite calls when inside a `useEffect`
     };
 };
 

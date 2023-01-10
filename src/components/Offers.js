@@ -15,18 +15,19 @@ import "../styles/Offers.css"
 
 const Offers = ({requestID}) => {
 
-    const { execute, isLoading } = useFetchWithMsal({
-        scopes: protectedResources.apiLoanComparer.scopes.read,
-    });
-
     console.log(requestID)
 
     const [offers, setOffers] = useState([])
 
-    const [error, setError] = useState(false);
+    const { execute, isLoading } = useFetchWithMsal({
+        scopes: protectedResources.apiLoanComparer.scopes.read,
+    });
+
+    //const [error, setError] = useState(false);
 
     useEffect(() => {
         const getOffersbyID_EFFECT = () => {
+
             execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
             .then((response) => {
                 setOffers(response);
@@ -37,7 +38,7 @@ const Offers = ({requestID}) => {
         }
 
         getOffersbyID_EFFECT();
-    }, [execute, requestID])
+    }, [requestID])
 
     return (
         <div className="Offers-islande">
