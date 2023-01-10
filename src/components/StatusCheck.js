@@ -1,6 +1,7 @@
 // react
 import React from "react";
 import { useState } from 'react';
+import { Circles } from 'react-loader-spinner'
 
 // microsoft
 import { protectedResources } from "../authConfig";
@@ -11,10 +12,10 @@ import '../styles/StatusCheck.css'
 
 const StatusCheck = () => {
 
-    const [offer, setOffer] = useState();
+    const [offer, setOffer] = useState(null);
     const [rqid, setRqid] = useState(0);
 
-    const { execute } = useFetchWithMsal({
+    const { execute, isLoading } = useFetchWithMsal({
         scopes: protectedResources.apiLoanComparer.scopes.read,
     });
 
@@ -27,6 +28,9 @@ const StatusCheck = () => {
             console.log(response);
             setOffer(response);
         })
+        .catch( (e) => {
+            setOffer( { status: "Podany numer oferty jest niepoprawny"} );
+        });
     }
 
     const onChange = (e) => {
@@ -39,14 +43,39 @@ const StatusCheck = () => {
                 <div> Wprowadź poniżej identyfikator swojej oferty </div>
                 
                 <form className='StatusCheck-form' onSubmit={findOffer}>
-                    <input type="number" className='StatusCheck-form-imput' onChange={onChange}/>
+                    
+                    {
+                        isLoading
+                            ?
+                        <input type="number" className='StatusCheck-form-imput' onChange={onChange} disabled/>
+                            :
+                        <input type="number" className='StatusCheck-form-imput' onChange={onChange} />
+                    }
+                    
                     <button className='StatusCheck-form-button'> Sprawdź </button>
                 </form>
 
-                {offer ? 
-                <div>
-                    Status: {offer.status}
-                </div> : null}
+
+                {
+                    isLoading 
+                        ? 
+                    <Circles 
+                        height="80"
+                        width="80"
+                        color="#4fa94d"
+                        ariaLabel="circles-loading"
+                        wrapperStyle={{ margin: 25}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                        :
+                        
+                    <>{offer ? 
+                    <div>
+                        Status: {offer.status === 500 ? "Oferta nie została znaleziona" : offer.status}
+                    </div> : null}
+                    </>
+                }
             </div>
         </div>
     )

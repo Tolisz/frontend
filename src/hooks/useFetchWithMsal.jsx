@@ -60,8 +60,14 @@ const useFetchWithMsal = (msalRequest) => {
 
                 response = await fetch(endpoint, options);
                 console.log("response = ", response);
-                if (response) {
-                    response = await response.json();
+
+                if (response.status === 200 || response.status === 204) {
+                    try {
+                        response = await response.json();    
+                    }
+                    catch(e) {
+                        console.log("Powodzenie, ale error = ", e);
+                    }
                 }
 
                 setData(response);
@@ -97,9 +103,16 @@ const useFetchWithMsal = (msalRequest) => {
     
                     response = await fetch(endpoint, options);
                     console.log("response = ", response);
-                    if (response) {
-                        response = await response.json();
+    
+                    if (response.status === 200 || response.status === 204) {
+                        try {
+                            response = await response.json();    
+                        }
+                        catch(e) {
+                            console.log("Powodzenie, ale error = ", e);
+                        }
                     }
+
                     setData(response);
     
                     setIsLoading(false);
@@ -138,9 +151,16 @@ const useFetchWithMsal = (msalRequest) => {
 
                 response = await fetch(endpoint, options);
                 console.log("response = ", response);
-                if (response) {
-                    response = await response.json();
+
+                if (response.status === 200 || response.status === 204) {
+                    try {
+                        response = await response.json();    
+                    }
+                    catch(e) {
+                        console.log("Powodzenie, ale error = ", e);
+                    }
                 }
+
                 setData(response);
 
                 setIsLoading(false);
