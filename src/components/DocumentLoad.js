@@ -1,53 +1,48 @@
 // react
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Circles } from 'react-loader-spinner'
 
 // microsoft
 import { protectedResources } from "../authConfig";
+import useFetchWithMsal from '../hooks/useFetchWithMsal';
 
 // css
 import '../styles/DocumetLoad.css'
 
-const DocumentLoad = ({ error, execute, requestID }) => {
+const DocumentLoad = ({ requestID }) => {
   
     const navigate = useNavigate();
+
+    const { execute, isLoading } = useFetchWithMsal({
+        scopes: protectedResources.apiLoanComparer.scopes.read,
+    });
+
+    const [error, setError] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        console.log("Documenty leca");
-
-        let agr = document.getElementById("agr").files[0];
         let doc = document.getElementById("doc").files[0];
 
-        if (!agr || !doc)
+        if (!doc)
         {
             return;
         }
 
-        // Oba dokumenty zostały wgrane
-        let formDataAgr = new FormData();
-        formDataAgr.append("file", agr);
-
         let formDataDoc = new FormData();
-        formDataDoc.append("file", agr);
+        formDataDoc.append("file", doc);
 
-        //console.log("formData = ", formData);
-
-        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadAgreement/${requestID}`, formDataAgr)
-        .then((result) => {
-            console.log(result);
-        }).catch(e => {
-            console.log("Blad w formDataAgr", e);
-        });
-        
         execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadDocument/${requestID}`, formDataDoc)
         .then((result) => {
             console.log(result);
+            
+            navigate("/success");
         }).catch(e => {
-            console.log("Blad w formDataDoc", e);
+            setError(true);
+            console.log(e);
         });
 
-        navigate("/success");
     }
   
     return (
@@ -60,12 +55,31 @@ const DocumentLoad = ({ error, execute, requestID }) => {
             </div>
 
             <form onSubmit={handleSubmit} className='DocumentLoad-Form'>
-                <label htmlFor="agr" className='DocumentLoad-label'> Zgoda </label>
-                <input type="file" id="agr" name="agreement" className='DocumentLoad-upload-box'/>
                 <label htmlFor="doc" className='DocumentLoad-label'> Dokument </label>
                 <input type="file" id="doc" name="document" className='DocumentLoad-upload-box'/>
+                {
+                    isLoading 
+                        ? 
+                    <Circles 
+                        height="80"
+                        width="80"
+                        color="#4fa94d"
+                        ariaLabel="circles-loading"
+                        wrapperStyle={{ margin: 25}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                        : 
+                    <button className='DocumentLoad-submit'>Submit</button>
+                }
 
-                <button className='DocumentLoad-submit'>Submit</button>
+                {
+                    !isLoading && error
+                        ?
+                    <div> Ups, wygląda na to że nie możesz wgrać dokument, spróbuj ponownie</div>                    
+                        :
+                    null
+                }
             </form>
                     
         </div>

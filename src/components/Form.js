@@ -1,11 +1,13 @@
 // react
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Circles } from 'react-loader-spinner'
 
 // microsoft
 import { protectedResources } from "../authConfig";
 import { useMsal } from "@azure/msal-react";
 import { createClaimsTable } from '../utils/claimUtils';
+import useFetchWithMsal from '../hooks/useFetchWithMsal';
 
 // my components
 import FormInput from './FormInput';
@@ -13,20 +15,19 @@ import FormInput from './FormInput';
 // styles
 import "../styles/Form.css"
 
-const Form = ({ error, execute, setRequestID }) => {
+const Form = ({ setRequestID }) => {
+
+    const { isLoading, execute } = useFetchWithMsal({
+        scopes: protectedResources.apiLoanComparer.scopes.read,
+    });
 
     const navigate = useNavigate();
-
-
-    // Microsoft magic
-    // Jebani microsoft
-    // const { error, execute } = useFetchWithMsal({
-    //     scopes: protectedResources.apiLoanComparer.scopes.read,
-    // });
 
     const { instance } = useMsal();    
     const activeAccount = instance.getActiveAccount();
     const tokenClaims = activeAccount ? createClaimsTable(activeAccount.idTokenClaims) : null;
+
+    const [postError, setPostError] = useState(false);
 
     const [values, setValues] = useState({
         name: activeAccount ? tokenClaims[11][1] : "",
@@ -139,40 +140,15 @@ const Form = ({ error, execute, setRequestID }) => {
         let currentTime = new Date().toJSON();
         let formData = {...values, date: currentTime, status: 'require acceptance', apiInfo: 'Frontend' };
         
-        //console.log(formData);
-        //console.log("Lecimy z tym koksem");
-        //console.log("Ednpoint: ", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`);
-        
-        
         execute("POST", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement`, JSON.stringify(formData), 'application/json')
         .then((response) => {
-            if (response && response.message === "success") {
-                //console.log("Udało się");
-            }
-            
-            console.log(response.message);
-            console.log("MYRESPONSE", response);
             setRequestID(response);
-            if (error) {
-                console.log("Error", error.message);
-            }
-            
             navigate('/offers');
         })
-        
-        
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        }
-
-        // execute("GET", "https://bank-project-backend-dev.azurewebsites.net/WeatherForecast")
-        // .then((response) => {
-        //     console.log(response)
-        //     console.log('setData')
-        // })
-        
-        // const data = new FormData(e.target);
-        // console.log(Object.fromEntries(data.entries()));
+        .catch((e) => {
+            setPostError(true);
+            console.log("From Post error: ", e);
+        })    
     } 
 
     const onChange = (e) => {
@@ -201,7 +177,26 @@ const Form = ({ error, execute, setRequestID }) => {
                         <FormInput key={input.id} {...input} value={values[input.name]} onChange={onChange}/>
                     ))}
                     
-                    <button className='SubmitButton'>Submit</button>
+                    {
+                        isLoading 
+                            ? 
+                            <Circles 
+                                height="80"
+                                width="80"
+                                color="#4fa94d"
+                                ariaLabel="circles-loading"
+                                wrapperStyle={{ margin: 25}}
+                                wrapperClass=""
+                                visible={true}
+                            />
+                            :
+                            <button className='SubmitButton'>Submit</button>
+                    }
+
+                    {
+                        !isLoading && postError ? <div> Ups, wygląda na to że twoją formę nie udało się wysłąć, spróbuj ponownie </div> : null
+                    }
+
                 </form>
             </div>
         </div>

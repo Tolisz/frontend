@@ -58,7 +58,12 @@ const useFetchWithMsal = (msalRequest) => {
 
                 setIsLoading(true);
 
-                response = await (await fetch(endpoint, options)).json();
+                response = await fetch(endpoint, options);
+                console.log("response = ", response);
+                if (response) {
+                    response = await response.json();
+                }
+
                 setData(response);
 
                 setIsLoading(false);
@@ -71,13 +76,9 @@ const useFetchWithMsal = (msalRequest) => {
         }
         else 
         {
-            console.log("Jestem tutaj");
-
             // Użytkownik nie jest zalogowany
             if (!instance.getActiveAccount())
             {
-                console.log("No jestem");
-
                 try {
                     let response = null;
     
@@ -94,7 +95,11 @@ const useFetchWithMsal = (msalRequest) => {
     
                     setIsLoading(true);
     
-                    response = await (await fetch(endpoint, options)).json();
+                    response = await fetch(endpoint, options);
+                    console.log("response = ", response);
+                    if (response) {
+                        response = await response.json();
+                    }
                     setData(response);
     
                     setIsLoading(false);
@@ -131,7 +136,11 @@ const useFetchWithMsal = (msalRequest) => {
 
                 setIsLoading(true);
 
-                response = await (await fetch(endpoint, options)).json();
+                response = await fetch(endpoint, options);
+                console.log("response = ", response);
+                if (response) {
+                    response = await response.json();
+                }
                 setData(response);
 
                 setIsLoading(false);

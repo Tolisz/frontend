@@ -4,20 +4,25 @@ import { useState } from 'react';
 
 // microsoft
 import { protectedResources } from "../authConfig";
+import useFetchWithMsal from '../hooks/useFetchWithMsal';
 
 // css
 import '../styles/StatusCheck.css'
 
-const StatusCheck = ({ error, execute }) => {
+const StatusCheck = () => {
 
     const [offer, setOffer] = useState();
     const [rqid, setRqid] = useState(0);
 
+    const { error, execute } = useFetchWithMsal({
+        scopes: protectedResources.apiLoanComparer.scopes.read,
+    });
+
     const findOffer = (e) => {
         e.preventDefault();
         console.log("Próbuję szukać");
-        
-        execute("GET", protectedResources.apiLoanComparer.endpoint + `/inspect/${rqid}`)
+
+        execute("GET", protectedResources.apiLoanComparer.endpoint + `inspect/${rqid}`)
         .then( (response) => {
             console.log(response);
             setOffer(response);

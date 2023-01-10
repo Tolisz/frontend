@@ -3,33 +3,20 @@ import { useNavigate } from 'react-router-dom';
 
 // microsoft
 import { protectedResources } from "../authConfig";
+import useFetchWithMsal from '../hooks/useFetchWithMsal';
 
 // css
 import "../styles/Offer.css"
 
-const Offer = ({data, error, execute, requestID}) => {
+const Offer = ({data, requestID}) => {
 
     const navigate = useNavigate();
 
-    // const test = {
-    //     "date": "2023-01-04T21:18:58.716Z",
-    //     "amount": 0,
-    //     "numberOfInstallments": 0,
-    //     "name": "string",
-    //     "surname": "string",
-    //     "govermentId": "string",
-    //     "email": "string",
-    //     "jobType": "string",
-    //     "incomeLevel": 0,
-    //     "status": "string",
-    //     "monthlyInstallment": 0
-    //   };
-
-    //const test = data;
+    const { execute } = useFetchWithMsal({
+        scopes: protectedResources.apiLoanComparer.scopes.read,
+    });
 
     const click_Offer = () => {
-        console.log(data);
-        console.log(JSON.stringify(data))
         execute("POST", protectedResources.apiLoanComparer.endpoint + `SelectedResult/${requestID}`, JSON.stringify(data), 'application/json')
         .then((response) => {
             console.log(response);
@@ -38,12 +25,7 @@ const Offer = ({data, error, execute, requestID}) => {
         }).catch(e => {
             console.log(e);
         });
-
-        if (error) {
-            return <div>Error: {error.message}</div>;
-        }
     }
-
 
     return (
         <div onClick={click_Offer}>
