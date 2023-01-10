@@ -38,7 +38,8 @@ const Offers = ({requestID}) => {
         }
 
         getOffersbyID_EFFECT();
-    }, [requestID])
+        // eslint-disable-next-line
+    }, [requestID]) // eslint-disable-next-line
 
     return (
         <div className="Offers-islande">
