@@ -5,6 +5,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // microsoft
 import { MsalProvider } from "@azure/msal-react";
+import { useMsal, useMsalAuthentication } from "@azure/msal-react";
+import { InteractionType } from '@azure/msal-browser';
+import { protectedResources } from "./authConfig";
 
 // my components
 import Header from "./components/Header";
@@ -19,6 +22,16 @@ import StatusCheck from "./components/StatusCheck";
 const Pages = () => {
 
     const [requestID, setRequestID] = useState(NaN);
+
+    const { instance } = useMsal();
+
+    const { result } = useMsalAuthentication(InteractionType.Popup, {
+        scopes: protectedResources.apiLoanComparer.scopes.read,
+        account: instance.getActiveAccount(),
+        redirectUri: '/redirect.html'
+    });
+
+    console.log(result);
 
     return (
         <div className="container">
