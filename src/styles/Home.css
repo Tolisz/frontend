@@ -1,6 +1,48 @@
 .Home 
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
+
+
+}
+
+.Home-text
+{
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 2;
+}
+
+.Home-text-Whole, .Home-offers-Whole
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    align-self: center;
+
+    width: 85%;
+
+    border-radius: 40px;
+    padding: 2%;
+}
+
+.Home-offers
+{
+    display: flex;
+    flex-direction: column;
+
+    flex-grow: 2;
+}
+
+.Home-offers-offer
+{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
 }

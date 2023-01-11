@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal} from "@azure/msal-react";
 import { loginRequest } from "../authConfig";
 
+// microsoft
+
 // my components
 
 // css 
@@ -25,8 +27,12 @@ const LogButton = () => {
         instance.logoutRedirect({ postLogoutRedirectUri: "/" })
     }
 
-    const click_LogIn = () => {
+    const useClick_LogIn = () => {
         instance.loginRedirect(loginRequest)
+    }
+
+    const click_MyOffers = () => {
+        navigate('/myoffers'); 
     }
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
@@ -40,6 +46,7 @@ const LogButton = () => {
                 content={
                     <>
                 <button onClick={click_MyAccount} className="MenuButton"> Moje konto</button> <br/>
+                <button onClick={click_MyOffers} className="MenuButton"> Moje oferty</button> <br/>
                 <button onClick={click_LogOut} className="MenuButton"> Wylogój </button>
                     </>
             }
@@ -52,7 +59,7 @@ const LogButton = () => {
 
         <UnauthenticatedTemplate>
             <button className="LogInButton">
-                <div onClick={click_LogIn}> Zaloguj się </div>
+                <div onClick={useClick_LogIn}> Zaloguj się </div>
             </button>
         </UnauthenticatedTemplate>
     </>

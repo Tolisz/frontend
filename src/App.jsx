@@ -18,6 +18,7 @@ import Offers from "./components/Offers";
 import DocumentLoad from "./components/DocumentLoad";
 import Success from "./components/Success";
 import StatusCheck from "./components/StatusCheck";
+import MyOffers from "./components/MyOffers";
 
 const Pages = () => {
 
@@ -40,6 +41,7 @@ const Pages = () => {
             <Routes>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/myaccount' element={<MyAccount/>}/>
+                <Route path='/myoffers' element={<MyOffers/>} />
                 <Route path='/form' element={<Form setRequestID={setRequestID}/>}  />
                 <Route path='/offers' element={<Offers requestID={requestID}/>} />
                 <Route path='/loadDocuments' element={<DocumentLoad requestID={requestID}/>} />
