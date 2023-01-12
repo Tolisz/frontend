@@ -7,6 +7,7 @@ import useFetchWithMsal from '../hooks/useFetchWithMsal';
 
 // css
 import "../styles/Offer.css"
+import "../styles/Table.css"
 
 const Offer = ({data, requestID}) => {
 
@@ -29,7 +30,7 @@ const Offer = ({data, requestID}) => {
 
     return (
         <div onClick={click_Offer}>
-            <table>
+            <table className='styled-table'>
                 <tbody>
                     <tr>
                         <td>Suma kredytu:</td>

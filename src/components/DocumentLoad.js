@@ -45,6 +45,17 @@ const DocumentLoad = ({ requestID }) => {
 
     }
   
+    const getFile = () => {
+        console.log("Próbuję pobrać plik");
+
+        var link = document.createElement("a");
+        link.download = protectedResources.apiLoanComparer.endpoint + `getAgreement/${requestID}`;
+        link.href = protectedResources.apiLoanComparer.endpoint + `getAgreement/${requestID}`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     return (
     <div className='DocumentLoad-island'>
         <div className='DocumentLoad-whole'>
@@ -52,10 +63,15 @@ const DocumentLoad = ({ requestID }) => {
             <div className='DocumentLoad-title'> 
                 <div>Jesteś na torze do sukcesu!</div>
                 <div> Zostało tylko wgrać niezbędne dokumenty</div>
+                <div> Pobierz wzór zgody przy pomocy przycisku poniżej, a dalej wgraj wypewnioną jako plik </div>
+
+                <button className='DocumentLoad-submit' onClick={getFile}>
+                    Pobierz zgodę
+                </button>
             </div>
 
             <form onSubmit={handleSubmit} className='DocumentLoad-Form'>
-                <label htmlFor="doc" className='DocumentLoad-label'> Dokument </label>
+                <label htmlFor="doc" className='DocumentLoad-label'> Wgraj zgodę poniżej </label>
                 <input type="file" id="doc" name="document" className='DocumentLoad-upload-box'/>
                 {
                     isLoading 

@@ -5,15 +5,18 @@ import { Circles } from 'react-loader-spinner'
 // microsoft
 import { protectedResources } from "../authConfig";
 import useFetchWithMsal from '../hooks/useFetchWithMsal';
-import { AuthenticatedTemplate, UnauthenticatedTemplate } from "@azure/msal-react";
+import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from "@azure/msal-react";
 
 // my components
 import { HomeOffer } from './HomeOffer';
 
 // css 
 import '../styles/Home.css'
+import "../styles/Table.css"
 
 const Home = () => {
+
+    const { instance } = useMsal();
 
     const [offers, setOffers] = useState(null);
 
@@ -23,6 +26,11 @@ const Home = () => {
 
     useEffect( () => 
     {
+        if (!instance.getActiveAccount())
+        {
+            return;
+        }
+
         execute("GET", protectedResources.apiLoanComparer.endpoint + `getRecentRequests`)
         .then((response) => {
             console.log("resp", response);
@@ -32,8 +40,9 @@ const Home = () => {
         .catch((error) => {
             console.log("error", error);
         })
-
-    }, [])
+        
+        // eslint-disable-next-line
+    }, [instance])
 
     return (
         <div className='Home'>
@@ -81,12 +90,16 @@ const Home = () => {
                             }
 
                             {                   
-                                offers && !isLoading
+                                offers
                                     ?
                                 offers.map((offer, index) => (
                                     <HomeOffer key={index} offer={offer}/>
                                 ))
                                     :
+                                isLoading 
+                                ?
+                                null
+                                :
                                 <div>Nie udało się załadować</div>
                             }   
 

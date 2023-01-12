@@ -75,8 +75,8 @@
     border-color: aliceblue;
     border-radius: 15px;
 
-    width: 100px;
     height: 25px;
+    padding: 4px 10px;
 
     font-size: 14px;
     font-weight: bold;

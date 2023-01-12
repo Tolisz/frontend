@@ -1,8 +1,11 @@
+// css 
+import "../styles/Table.css"
+
 export const HomeOffer = ({offer}) => {
 
     return (
         <div>
-            <table>
+            <table className="styled-table">
                 <tbody>
                     <tr>
                         <td>Czas złożenia oferty:</td>
