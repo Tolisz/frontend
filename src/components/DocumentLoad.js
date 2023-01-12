@@ -72,7 +72,7 @@ const DocumentLoad = ({ requestID }) => {
 
             <form onSubmit={handleSubmit} className='DocumentLoad-Form'>
                 <label htmlFor="doc" className='DocumentLoad-label'> Wgraj zgodę poniżej </label>
-                <input type="file" id="doc" name="document" className='DocumentLoad-upload-box'/>
+                <input type="file" id="doc" name="document" className='DocumentLoad-upload-box' accept=".txt"/>
                 {
                     isLoading 
                         ? 
