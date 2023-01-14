@@ -34,6 +34,8 @@ const Home = () => {
         {
             getLastOffers();
         }
+
+        // eslint-disable-next-line
     }, [])
 
     const getLastOffers = async () => 
@@ -43,7 +45,7 @@ const Home = () => {
 
         execute("GET", protectedResources.apiLoanComparer.endpoint + `getRecentRequests`)
         .then((response) => {
-            if (response.status == 401)
+            if (response.status === 401)
             {
                 setOffers(null);
                 return;

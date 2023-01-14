@@ -36,7 +36,7 @@ const DocumentLoad = ({ requestID }) => {
 
         execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadDocument/${requestID}`, formDataDoc)
         .then((result) => {
-            if (result.status == 200 || result.status == 204)
+            if (result.status === 200 || result.status === 204)
             {
                 navigate("/success");
             }
