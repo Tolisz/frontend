@@ -30,7 +30,11 @@ const Offers = ({requestID}) => {
 
             execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
             .then((response) => {
-                setOffers(response);
+
+                if (response.status === 200)
+                    setOffers(response);
+                else 
+                    setOffers(null);
             })
             .catch((e) => {
                 console.log("getOffersbyID_EFFECT error: ", e);
@@ -71,7 +75,7 @@ const Offers = ({requestID}) => {
                     <Offer key={index} data={offer} requestID={requestID}/>
                     )) 
                         :
-                    <div> Ups, nie udało się załadować oferty, spróbuj ponownie odświeżywszy stronę</div>
+                    <div> Ups, nie udało się załadować oferty, odśwież stronę i spróbuj ponownie </div>
                 }
                 </div>
             </div>

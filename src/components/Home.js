@@ -18,7 +18,7 @@ const Home = () => {
 
     const { instance } = useMsal();
 
-    const [offers, setOffers] = useState(null);
+    const [offers, setOffers] = useState([]);
 
     const { execute, isLoading } = useFetchWithMsal({
         scopes: protectedResources.apiLoanComparer.scopes.read,
@@ -28,21 +28,33 @@ const Home = () => {
     {
         if (!instance.getActiveAccount())
         {
-            return;
+            setTimeout(getLastOffers, 200);
         }
+        else 
+        {
+            getLastOffers();
+        }
+    }, [])
+
+    const getLastOffers = async () => 
+    {
+        if (!instance.getActiveAccount())
+            return;
 
         execute("GET", protectedResources.apiLoanComparer.endpoint + `getRecentRequests`)
         .then((response) => {
-            console.log("resp", response);
-
+            if (response.status == 401)
+            {
+                setOffers(null);
+                return;
+            }
+            
             setOffers(response);
         })
         .catch((error) => {
             console.log("error", error);
         })
-        
-        // eslint-disable-next-line
-    }, [instance])
+    }
 
     return (
         <div className='Home'>

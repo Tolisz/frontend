@@ -24,3 +24,21 @@
 .styled-table tr:nth-child(1) {
     background-color: #00ffcc;
 }
+
+.styled-table-click-Pending
+{
+    text-align: center;
+    vertical-align: middle;
+    background-color: #00eeff;
+    border-radius: 20px;
+    border-collapse: collapse;
+}
+
+.styled-table-click-OfferSelected
+{
+    text-align: center;
+    vertical-align: middle;
+    background-color: #fbff00;
+    border-radius: 20px;
+    border-collapse: collapse;
+}

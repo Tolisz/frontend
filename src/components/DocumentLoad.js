@@ -19,6 +19,7 @@ const DocumentLoad = ({ requestID }) => {
     });
 
     const [error, setError] = useState(false);
+    const [docerror, setDocerror] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -35,9 +36,14 @@ const DocumentLoad = ({ requestID }) => {
 
         execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadDocument/${requestID}`, formDataDoc)
         .then((result) => {
-            console.log(result);
-            
-            navigate("/success");
+            if (result.status == 200 || result.status == 204)
+            {
+                navigate("/success");
+            }
+            else 
+            {
+                setError(true);
+            }
         }).catch(e => {
             setError(true);
             console.log(e);
@@ -46,14 +52,22 @@ const DocumentLoad = ({ requestID }) => {
     }
   
     const getFile = () => {
-        console.log("Próbuję pobrać plik");
+
+
+        if (isNaN(requestID) || requestID == null)
+        {
+            setDocerror(true);
+            return;
+        }
 
         var link = document.createElement("a");
         link.download = protectedResources.apiLoanComparer.endpoint + `getAgreement/${requestID}`;
         link.href = protectedResources.apiLoanComparer.endpoint + `getAgreement/${requestID}`;
         document.body.appendChild(link);
         link.click();
+        
         document.body.removeChild(link);
+        setDocerror(false);
     }
 
     return (
@@ -93,6 +107,13 @@ const DocumentLoad = ({ requestID }) => {
                     !isLoading && error
                         ?
                     <div> Ups, wygląda na to że nie możesz wgrać dokument, spróbuj ponownie</div>                    
+                        :
+                    null
+                }
+                {
+                    docerror
+                        ?
+                    <div> Niestety nie możesz pobrać dokument, spróbuj ponownie</div>
                         :
                     null
                 }
