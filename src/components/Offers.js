@@ -31,10 +31,17 @@ const Offers = ({requestID}) => {
             execute("GET", protectedResources.apiLoanComparer.endpoint + `api/RequestManagement/api/RequestManagement/offers/${requestID}`)
             .then((response) => {
 
-                if (response.status === 200)
+                console.log("Jestem w odpowiedzi = ", response);
+                console.log("requestID = ", requestID);
+
+                if (response !== null)
+                {
                     setOffers(response);
+                }
                 else 
+                {
                     setOffers(null);
+                }
             })
             .catch((e) => {
                 console.log("getOffersbyID_EFFECT error: ", e);
@@ -43,7 +50,7 @@ const Offers = ({requestID}) => {
 
         getOffersbyID_EFFECT();
         // eslint-disable-next-line
-    }, [requestID]) // eslint-disable-next-line
+    }, []) // eslint-disable-next-line
 
     return (
         <div className="Offers-islande">

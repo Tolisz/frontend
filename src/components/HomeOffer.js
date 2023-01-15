@@ -4,23 +4,20 @@ import { useNavigate } from 'react-router-dom';
 // css 
 import "../styles/Table.css"
 
-export const HomeOffer = ({offer}) => {
+export const HomeOffer = ({offer, setRequestID}) => {
 
     //console.log(offer);
-
     const navigate = useNavigate();
 
     const onClick_Pending = () => 
     {
-        // NALEŻY TUTAJ z App.jsx ustawić ID oferty
-        
+        setRequestID(offer.requestID);
         navigate("/offers");
     }
 
     const onClick_OfferSelected = () => 
     {
-        // NALEŻY TUTAJ z App.jsx ustawić ID oferty
-
+        setRequestID(offer.requestID);
         navigate("/loadDocuments");
     }
 
@@ -53,7 +50,6 @@ export const HomeOffer = ({offer}) => {
                             switch(offer.status) {
                                 case "Pending": return <td colSpan="2" className="styled-table-click-Pending" onClick={onClick_Pending}> Wybierz ofertę </td>;
                                 case "OfferSelected": return <td colSpan="2" className="styled-table-click-OfferSelected" onClick={onClick_OfferSelected}> Wgraj Dokumenty </td>;
-                                case "Będzie w przyszłości": return ;
                                 default: return null;
                             }
                             })()}

@@ -14,7 +14,7 @@ import { HomeOffer } from './HomeOffer';
 import '../styles/Home.css'
 import "../styles/Table.css"
 
-const Home = () => {
+const Home = ({setRequestID}) => {
 
     const { instance } = useMsal();
 
@@ -28,7 +28,7 @@ const Home = () => {
     {
         if (!instance.getActiveAccount())
         {
-            setTimeout(getLastOffers, 200);
+            setTimeout(getLastOffers, 1000);
         }
         else 
         {
@@ -107,7 +107,7 @@ const Home = () => {
                                 offers
                                     ?
                                 offers.map((offer, index) => (
-                                    <HomeOffer key={index} offer={offer}/>
+                                    <HomeOffer key={index} offer={offer} setRequestID={setRequestID}/>
                                 ))
                                     :
                                 isLoading 

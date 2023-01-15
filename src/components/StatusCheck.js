@@ -1,7 +1,8 @@
 // react
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from 'react';
 import { Circles } from 'react-loader-spinner'
+import { useParams } from 'react-router-dom'
 
 // microsoft
 import { protectedResources } from "../authConfig";
@@ -12,8 +13,14 @@ import '../styles/StatusCheck.css'
 
 const StatusCheck = () => {
 
+    const { id } = useParams();
+
     const [offer, setOffer] = useState(null);
     const [rqid, setRqid] = useState(0);
+
+    useEffect(() => {
+        setRqid(id);
+    }, [id]);
 
     const { execute, isLoading } = useFetchWithMsal({
         scopes: protectedResources.apiLoanComparer.scopes.read,
@@ -49,7 +56,7 @@ const StatusCheck = () => {
                             ?
                         <input type="number" className='StatusCheck-form-imput' onChange={onChange} disabled/>
                             :
-                        <input type="number" className='StatusCheck-form-imput' onChange={onChange} />
+                        <input type="number" className='StatusCheck-form-imput' onChange={onChange} defaultValue={id}/>
                     }
                     
                     <button className='StatusCheck-form-button'> Sprawdź </button>

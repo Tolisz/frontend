@@ -1,5 +1,6 @@
 // react
 import { useNavigate } from 'react-router-dom';
+import { Circles } from 'react-loader-spinner'
 
 // microsoft
 import { protectedResources } from "../authConfig";
@@ -13,7 +14,7 @@ const Offer = ({data, requestID}) => {
 
     const navigate = useNavigate();
 
-    const { execute } = useFetchWithMsal({
+    const { execute, isLoading } = useFetchWithMsal({
         scopes: protectedResources.apiLoanComparer.scopes.read,
     });
 
@@ -46,6 +47,22 @@ const Offer = ({data, requestID}) => {
                     </tr>
                 </tbody>
             </table>
+
+            {
+                isLoading 
+                    ? 
+                <Circles 
+                    height="80"
+                    width="80"
+                    color="#4fa94d"
+                    ariaLabel="circles-loading"
+                    wrapperStyle={{ margin: 25}}
+                    wrapperClass=""
+                    visible={true}
+                />
+                    :
+                null
+            }
         </div>
   )
 }

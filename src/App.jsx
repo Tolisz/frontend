@@ -26,7 +26,7 @@ const Pages = () => {
             <Header />
             
             <Routes>
-                <Route path='/' element={<Home/>}/>
+                <Route path='/' element={<Home setRequestID={setRequestID}/>}/>
                 <Route path='/myaccount' element={<MyAccount/>}/>
                 <Route path='/myoffers' element={<MyOffers/>} />
                 <Route path='/form' element={<Form setRequestID={setRequestID}/>}  />
@@ -34,6 +34,7 @@ const Pages = () => {
                 <Route path='/loadDocuments' element={<DocumentLoad requestID={requestID}/>} />
                 <Route path='/success' element={<Success/>} />
                 <Route path='/statusCheck' element={<StatusCheck/>} />
+                <Route path='/statusCheck/:id' element={<StatusCheck/>} />
             </Routes>
 
         </div>

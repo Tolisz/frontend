@@ -34,7 +34,7 @@ const DocumentLoad = ({ requestID }) => {
         let formDataDoc = new FormData();
         formDataDoc.append("file", doc);
 
-        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadDocument/${requestID}`, formDataDoc)
+        execute("POST", protectedResources.apiLoanComparer.endpoint + `UploadAgreement/${requestID}`, formDataDoc)
         .then((result) => {
             if (result.status === 200 || result.status === 204)
             {
