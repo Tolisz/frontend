@@ -1,0 +1,22 @@
+.FinalComf-island
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.FinalComf-whole
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    align-self: center;
+
+    width: 500px;
+
+    border-radius: 40px;
+    padding: 1%;
+}

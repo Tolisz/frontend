@@ -16,6 +16,7 @@ import DocumentLoad from "./components/DocumentLoad";
 import Success from "./components/Success";
 import StatusCheck from "./components/StatusCheck";
 import MyOffers from "./components/MyOffers";
+import FinalComfirmation from "./components/FinalComfirmation";
 
 const Pages = () => {
 
@@ -35,6 +36,7 @@ const Pages = () => {
                 <Route path='/success' element={<Success/>} />
                 <Route path='/statusCheck' element={<StatusCheck/>} />
                 <Route path='/statusCheck/:id' element={<StatusCheck/>} />
+                <Route path='/finalConfirmation/:rqid/:guid' element={<FinalComfirmation />} />
             </Routes>
 
         </div>
